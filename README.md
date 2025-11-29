@@ -18,8 +18,7 @@ Cânticos de exemplo - Use os cânticos pré-carregados para testar
 Iniciar apresentação - Comece a exibição dos slides
 
 2. Formato dos Arquivos (SUPER SIMPLES)
-Estrutura Simplificada:
-text
+
 ===NOME DO CÂNTICO===
 LINHA 1 DA ESTROFE
 LINHA 2 DA ESTROFE
@@ -29,10 +28,10 @@ LINHA 2 DO REFRÃO
 
 PRÓXIMA ESTROFE
 MAIS LINHAS
-
 ===FIM===
+
 Exemplo Prático:
-text
+
 ===A NÓS DESCEI DIVINA LUZ===
 A NÓS DESCEI DIVINA LUZ
 EM NOSSAS ALMAS ACENDEI
@@ -45,8 +44,8 @@ DESCEI SOBRE NÓS SENHOR
 
 VEM ESPÍRITO SANTO VEM
 VEM ILUMINAR
-
 ===FIM===
+
 3. Controles de Navegação
 Teclado:
 → ou Espaço - Próximo slide
@@ -112,7 +111,6 @@ Use modo manual se precisar de controle fino
 Formatos Suportados:
 ✅ Arquivos de texto (.txt)
 ✅ Codificação UTF-8
-✅ SEM marcadores - mais simples!
 ✅ Até 100 cânticos por arquivo
 
 Para dúvidas ou problemas:
@@ -121,6 +119,6 @@ Verifique as instruções na tela de configuração
 Use os cânticos de exemplo como referência
 Teste em diferentes navegadores
 
-Desenvolvido para comunidades litúrgicas 🎵✨
+Desenvolvido para criar de maneira simples e sem necessitar de softwares pesados e poder confeccionar o arquivo .txt tanto pelo computar ou pelo celular 🎵✨
 
 Sistema simplificado e prático para projeções rápidas e eficientes durante celebrações.
