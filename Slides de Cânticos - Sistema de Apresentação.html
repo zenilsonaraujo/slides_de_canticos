@@ -22,38 +22,39 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            padding: 20px;
+            padding: 0; /* Reduzido de 20px para 0 */
         }
 
         #presentation-container {
             width: 100%;
-            max-width: 1200px;
-            height: 90vh;
+            max-width: 100%; /* Alterado de 1200px para 100% */
+            height: 100vh; /* Alterado de 90vh para 100vh */
             display: flex;
             flex-direction: column;
             background: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
+            border-radius: 0; /* Removido para usar toda a área */
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: none; /* Removido para não ocupar espaço visual */
         }
 
         #header {
-            padding: 15px 20px;
+            padding: 5px 10px; /* Reduzido de 15px 20px */
             background: rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            min-height: 40px; /* Definido tamanho mínimo */
         }
 
         #title {
-            font-size: 1.5rem;
+            font-size: 1.2rem; /* Reduzido de 1.5rem */
             font-weight: bold;
             color: #ffffff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         #progress {
-            font-size: 1rem;
+            font-size: 0.9rem; /* Reduzido de 1rem */
             color: #ccc;
         }
 
@@ -62,23 +63,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 30px;
+            padding: 5px; /* Reduzido drasticamente de 30px */
             position: relative;
+            overflow: hidden;
         }
 
         #slide {
-            font-size: 3rem;
+            font-size: 4rem; /* Aumentado de 3rem para 4rem */
             text-align: center;
-            width: 90%;
+            width: 98%; /* Aumentado de 90% */
+            max-width: 98%; /* Aumentado de 90% */
+            max-height: 98%; /* Aumentado de 90% */
             opacity: 0;
             transform: scale(0.95);
             transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-            line-height: 1.5;
+            line-height: 1.3; /* Reduzido de 1.5 para melhor aproveitamento vertical */
             white-space: pre-line;
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
             text-transform: uppercase;
             font-weight: 900;
             color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
         }
 
         /* Estilo único para todas as linhas - MUITO MAIS SIMPLES */
@@ -89,13 +97,14 @@
             opacity: 0;
             animation: fadeIn 0.8s ease-in-out forwards;
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
-            margin-bottom: 10px;
+            margin-bottom: 5px; /* Reduzido de 10px */
+            line-height: 1.2; /* Reduzido de 1.4 */
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px); /* Reduzido de 20px */
             }
             to {
                 opacity: 1;
@@ -105,19 +114,20 @@
 
         .font-controls {
             display: flex;
-            gap: 10px;
+            gap: 5px; /* Reduzido de 10px */
             align-items: center;
         }
 
         .font-btn {
-            padding: 5px 12px;
+            padding: 3px 8px; /* Reduzido de 5px 12px */
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid #ffd700;
-            border-radius: 5px;
+            border-radius: 3px; /* Reduzido de 5px */
             color: white;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
+            font-size: 0.8rem; /* Adicionado para manter legibilidade */
         }
 
         .font-btn:hover {
@@ -127,16 +137,17 @@
 
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
+            top: 10px; /* Ajustado de 20px */
+            right: 10px; /* Ajustado de 20px */
+            padding: 10px 15px; /* Reduzido de 15px 25px */
             background: #4CAF50;
             color: white;
-            border-radius: 8px;
+            border-radius: 5px; /* Reduzido de 8px */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             animation: slideIn 0.3s ease-out, slideOut 0.3s ease-in 2.7s;
             opacity: 0;
+            font-size: 0.9rem; /* Adicionado para manter legibilidade */
         }
 
         @keyframes slideIn {
@@ -198,13 +209,13 @@
             align-items: center;
             justify-content: center;
             z-index: 20;
-            padding: 20px;
+            padding: 10px; /* Reduzido de 20px */
         }
 
         .config-panel {
             background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 15px;
+            padding: 20px; /* Reduzido de 30px */
+            border-radius: 10px; /* Reduzido de 15px */
             max-width: 800px;
             width: 100%;
             text-align: center;
@@ -212,27 +223,27 @@
 
         .config-panel h2 {
             color: #ffd700;
-            margin-bottom: 20px;
-            font-size: 2rem;
+            margin-bottom: 15px; /* Reduzido de 20px */
+            font-size: 1.8rem; /* Reduzido de 2rem */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .config-option {
-            margin: 20px 0;
+            margin: 15px 0; /* Reduzido de 20px 0 */
             text-align: left;
         }
 
         .config-option label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px; /* Reduzido de 8px */
             font-weight: bold;
         }
 
         .file-input {
             width: 100%;
-            padding: 10px;
+            padding: 8px; /* Reduzido de 10px */
             border: 2px dashed #ffd700;
-            border-radius: 8px;
+            border-radius: 5px; /* Reduzido de 8px */
             background: rgba(255, 255, 255, 0.1);
             color: white;
             cursor: pointer;
@@ -243,16 +254,16 @@
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 10px 20px; /* Reduzido de 12px 30px */
             border: none;
-            border-radius: 50px;
+            border-radius: 40px; /* Reduzido de 50px */
             background: rgba(255, 255, 255, 0.2);
             color: white;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 10px;
-            font-size: 1rem;
+            margin: 8px; /* Reduzido de 10px */
+            font-size: 0.9rem; /* Reduzido de 1rem */
             text-transform: uppercase;
             border: 1px solid #ffd700;
         }
@@ -274,45 +285,45 @@
 
         .instructions {
             background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
+            padding: 12px; /* Reduzido de 15px */
+            border-radius: 5px; /* Reduzido de 8px */
+            margin-top: 15px; /* Reduzido de 20px */
             text-align: left;
-            max-height: 400px;
+            max-height: 350px; /* Reduzido de 400px */
             overflow-y: auto;
         }
 
         .instructions h3 {
             color: #ffd700;
-            margin-bottom: 10px;
-            font-size: 1rem;
+            margin-bottom: 8px; /* Reduzido de 10px */
+            font-size: 0.9rem; /* Reduzido de 1rem */
         }
 
         .instructions ol {
-            padding-left: 20px;
-            font-size: 0.9rem;
+            padding-left: 15px; /* Reduzido de 20px */
+            font-size: 0.85rem; /* Reduzido de 0.9rem */
         }
 
         .instructions li {
-            margin-bottom: 5px;
-            line-height: 1.3;
+            margin-bottom: 4px; /* Reduzido de 5px */
+            line-height: 1.2; /* Reduzido de 1.3 */
         }
 
         .instructions pre {
-            font-size: 0.75rem;
-            max-height: 200px;
+            font-size: 0.7rem; /* Reduzido de 0.75rem */
+            max-height: 180px; /* Reduzido de 200px */
             overflow-y: auto;
         }
 
         /* Indicador de loop */
         .loop-indicator {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
+            bottom: 10px; /* Reduzido de 20px */
+            left: 10px; /* Reduzido de 20px */
             background: rgba(0, 0, 0, 0.5);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
+            padding: 3px 6px; /* Reduzido de 5px 10px */
+            border-radius: 3px; /* Reduzido de 5px */
+            font-size: 0.7rem; /* Reduzido de 0.8rem */
             color: #ffd700;
             display: none;
         }
@@ -320,12 +331,12 @@
         /* Indicador de slide vazio */
         .empty-slide-indicator {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
+            bottom: 10px; /* Reduzido de 20px */
+            right: 10px; /* Reduzido de 20px */
             background: rgba(0, 0, 0, 0.5);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
+            padding: 3px 6px; /* Reduzido de 5px 10px */
+            border-radius: 3px; /* Reduzido de 5px */
+            font-size: 0.7rem; /* Reduzido de 0.8rem */
             color: #ffd700;
             display: none;
         }
@@ -334,17 +345,17 @@
         .color-options {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px; /* Reduzido de 10px */
             justify-content: center;
-            margin: 20px 0;
+            margin: 15px 0; /* Reduzido de 20px 0 */
         }
 
         .color-option {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
+            width: 50px; /* Reduzido de 60px */
+            height: 50px; /* Reduzido de 60px */
+            border-radius: 8px; /* Reduzido de 10px */
             cursor: pointer;
-            border: 3px solid transparent;
+            border: 2px solid transparent; /* Reduzido de 3px */
             transition: all 0.3s ease;
         }
 
@@ -354,36 +365,36 @@
 
         .color-option.selected {
             border-color: #ffd700;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8); /* Reduzido de 15px */
         }
 
         .color-label {
-            font-size: 0.8rem;
-            margin-top: 5px;
+            font-size: 0.7rem; /* Reduzido de 0.8rem */
+            margin-top: 3px; /* Reduzido de 5px */
             text-align: center;
         }
 
         /* Responsividade */
         @media (max-width: 768px) {
             #slide {
-                font-size: 2.2rem;
+                font-size: 3rem; /* Aumentado de 2.2rem */
             }
             
             #title {
-                font-size: 1.2rem;
+                font-size: 1rem; /* Reduzido de 1.2rem */
             }
             
             .config-panel h2 {
-                font-size: 1.5rem;
+                font-size: 1.3rem; /* Reduzido de 1.5rem */
             }
 
             .color-options {
-                gap: 5px;
+                gap: 4px; /* Reduzido de 5px */
             }
 
             .color-option {
-                width: 50px;
-                height: 50px;
+                width: 45px; /* Reduzido de 50px */
+                height: 45px; /* Reduzido de 50px */
             }
         }
     </style>
@@ -429,7 +440,7 @@
             </div>
         </div>
 
-        <div style="margin: 20px 0;">
+        <div style="margin: 15px 0;">
             <button class="btn" onclick="startWithDefault()" aria-label="Cânticos de exemplo">CÂNTICOS DE EXEMPLO</button>
             <button class="btn" onclick="showInstructions()" aria-label="Mostrar instruções">INSTRUÇÕES</button>
             <button class="btn" onclick="exportMusicas()" aria-label="Exportar configuração">EXPORTAR</button>
@@ -447,7 +458,7 @@
             </ol>
             
             <h3>EXEMPLO SIMPLES:</h3>
-            <pre style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px;">===A NÓS DESCEI DIVINA LUZ===
+            <pre style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 3px;">===A NÓS DESCEI DIVINA LUZ===
 A NÓS DESCEI DIVINA LUZ
 EM NOSSAS ALMAS ACENDEI
 
@@ -471,6 +482,7 @@ VEM ILUMINAR</pre>
         <div class="font-controls">
             <button class="font-btn" onclick="decreaseFontSize()" aria-label="Diminuir fonte">A-</button>
             <button class="font-btn" onclick="increaseFontSize()" aria-label="Aumentar fonte">A+</button>
+            <button class="font-btn" onclick="resetAutoAdjust()" aria-label="Redefinir ajuste automático">AUTO</button>
         </div>
         <div id="progress" aria-live="polite">1/1</div>
     </div>
@@ -490,11 +502,13 @@ VEM ILUMINAR</pre>
         musicas: [],
         musicaAtual: 0,
         slideAtual: 0,
-        fontSize: 3,
+        fontSize: 4, // Aumentado de 3 para 4
         animationFrame: null,
         loopAtivo: false,
         inicioDoCantico: true,
-        corFundo: 'preto'
+        corFundo: 'preto',
+        autoAdjustEnabled: true,
+        baseFontSize: 4 // Aumentado de 3 para 4
     };
 
     // =============================
@@ -542,6 +556,84 @@ VEM ILUMINAR</pre>
     const fileInput = document.getElementById("file-input");
     const loopIndicator = document.getElementById("loop-indicator");
     const emptySlideIndicator = document.getElementById("empty-slide-indicator");
+
+    // =============================
+    // FUNÇÕES DE AJUSTE AUTOMÁTICO DE FONTE
+    // =============================
+
+    function ajustarFonteParaCaber() {
+        if (!appState.autoAdjustEnabled) return;
+        
+        const container = document.getElementById('slide-container');
+        const slide = document.getElementById('slide');
+        
+        // Reset para o tamanho base
+        slide.style.fontSize = appState.baseFontSize + 'rem';
+        
+        // Dimensões do container
+        const containerWidth = container.clientWidth - 10; // padding reduzido
+        const containerHeight = container.clientHeight - 10; // padding reduzido
+        
+        // Dimensões atuais do slide
+        let slideWidth = slide.scrollWidth;
+        let slideHeight = slide.scrollHeight;
+        
+        let fontSize = appState.baseFontSize;
+        
+        // Ajusta até caber no container
+        while ((slideWidth > containerWidth || slideHeight > containerHeight) && fontSize > 1.0) {
+            fontSize -= 0.1;
+            slide.style.fontSize = fontSize + 'rem';
+            
+            // Atualiza dimensões após mudança de fonte
+            slideWidth = slide.scrollWidth;
+            slideHeight = slide.scrollHeight;
+        }
+        
+        // Se ainda não couber, ajusta o line-height
+        if (slideHeight > containerHeight && fontSize > 0.8) {
+            const linhas = slide.querySelectorAll('.linha-cantico');
+            let currentLineHeight = 1.2; // Reduzido de 1.4
+            
+            while (slideHeight > containerHeight && currentLineHeight > 1.0) { // Reduzido de 1.1
+                currentLineHeight -= 0.05;
+                linhas.forEach(linha => {
+                    linha.style.lineHeight = currentLineHeight;
+                });
+                slideHeight = slide.scrollHeight;
+            }
+        }
+        
+        return fontSize;
+    }
+
+    function resetAutoAdjust() {
+        appState.autoAdjustEnabled = !appState.autoAdjustEnabled;
+        
+        if (appState.autoAdjustEnabled) {
+            showNotification('Ajuste automático ATIVADO');
+            // Reaplica o ajuste automático
+            setTimeout(() => {
+                ajustarFonteParaCaber();
+            }, 100);
+        } else {
+            showNotification('Ajuste automático DESATIVADO');
+            // Restaura o tamanho base
+            slideDiv.style.fontSize = appState.baseFontSize + 'rem';
+            
+            // Restaura line-height padrão
+            const linhas = slideDiv.querySelectorAll('.linha-cantico');
+            linhas.forEach(linha => {
+                linha.style.lineHeight = '1.2'; // Reduzido de 1.4
+            });
+        }
+        
+        // Atualiza o botão
+        const autoBtn = document.querySelector('.font-btn:last-child');
+        autoBtn.textContent = appState.autoAdjustEnabled ? 'AUTO ON' : 'AUTO OFF';
+        autoBtn.style.background = appState.autoAdjustEnabled ? 
+            'rgba(255, 215, 0, 0.3)' : 'rgba(255, 255, 255, 0.2)';
+    }
 
     // =============================
     // FUNÇÕES AUXILIARES
@@ -800,7 +892,15 @@ VEM ILUMINAR</pre>
                     slideDiv.textContent = texto;
                 }
                 
-                slideDiv.style.fontSize = appState.fontSize + 'rem';
+                // Define o tamanho base da fonte
+                slideDiv.style.fontSize = appState.baseFontSize + 'rem';
+                
+                // Aplica ajuste automático se estiver habilitado
+                if (appState.autoAdjustEnabled) {
+                    setTimeout(() => {
+                        ajustarFonteParaCaber();
+                    }, 50);
+                }
                 
                 // Mantém o texto branco
                 slideDiv.style.color = '#ffffff';
@@ -908,16 +1008,26 @@ VEM ILUMINAR</pre>
     }
 
     function increaseFontSize() {
-        if (appState.fontSize < 5) {
-            appState.fontSize += 0.2;
-            slideDiv.style.fontSize = appState.fontSize + 'rem';
+        if (appState.baseFontSize < 6) { // Aumentado de 5 para 6
+            appState.baseFontSize += 0.2;
+            if (!appState.autoAdjustEnabled) {
+                slideDiv.style.fontSize = appState.baseFontSize + 'rem';
+            } else {
+                // Reaplica o ajuste automático com novo tamanho base
+                mostrarSlide();
+            }
         }
     }
 
     function decreaseFontSize() {
-        if (appState.fontSize > 1.5) {
-            appState.fontSize -= 0.2;
-            slideDiv.style.fontSize = appState.fontSize + 'rem';
+        if (appState.baseFontSize > 1.5) {
+            appState.baseFontSize -= 0.2;
+            if (!appState.autoAdjustEnabled) {
+                slideDiv.style.fontSize = appState.baseFontSize + 'rem';
+            } else {
+                // Reaplica o ajuste automático com novo tamanho base
+                mostrarSlide();
+            }
         }
     }
 
@@ -996,6 +1106,19 @@ VEM ILUMINAR</pre>
                 e.preventDefault();
                 decreaseFontSize();
             }
+            if (e.key === "a" || e.key === "A") {
+                e.preventDefault();
+                resetAutoAdjust();
+            }
+        }
+    });
+
+    // Redimensionamento da janela
+    window.addEventListener('resize', () => {
+        if (presentationContainer.style.display === "flex" && appState.autoAdjustEnabled) {
+            setTimeout(() => {
+                ajustarFonteParaCaber();
+            }, 100);
         }
     });
 
