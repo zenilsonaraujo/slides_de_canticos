@@ -84,9 +84,12 @@ Cor	Uso Litúrgico
 🤍 Branco	Natal, Páscoa, Festas
 📁 Estrutura de Arquivos
 text
+
 slides-canticos/
+
 ├── index.html          # Arquivo principal
 └── canticos.txt        # Arquivo de exemplo (exportado)
+
 💡 Dicas para Uso
 Preparação dos Cânticos:
 Divida em slides lógicos - Cada estrofe/refrão em slides separados
