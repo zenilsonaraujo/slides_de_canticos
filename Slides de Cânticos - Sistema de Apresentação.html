@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slides de Cânticos - Apresentação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #000000;
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        #presentation-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        #header {
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        #progress {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        #slide-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        #slide {
+            font-size: 3rem;
+            text-align: center;
+            width: 90%;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            line-height: 1.5;
+            white-space: pre-line;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+            text-transform: uppercase;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        /* Estilo único para todas as linhas - MUITO MAIS SIMPLES */
+        .linha-cantico {
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out forwards;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .font-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .font-btn {
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #ffd700;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .font-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out, slideOut 0.3s ease-in 2.7s;
+            opacity: 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        .music-transition {
+            animation: musicChange 1s ease-in-out;
+        }
+
+        @keyframes musicChange {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0;
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .visible {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+        }
+
+        /* Tela de configuração */
+        #config-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            padding: 20px;
+        }
+
+        .config-panel {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .config-panel h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .config-option {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .config-option label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px dashed #ffd700;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+        }
+
+        .file-input:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            border: 1px solid #ffd700;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-primary {
+            background: #ffd700;
+            color: #1a1a1a;
+        }
+
+        .btn-primary:hover {
+            background: #ffed4e;
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .instructions h3 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .instructions pre {
+            font-size: 0.75rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        /* Indicador de loop */
+        .loop-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            color: #ffd700;
+            display: none;
+        }
+
+        /* Indicador de slide vazio */
+        .empty-slide-indicator {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            color: #ffd700;
+            display: none;
+        }
+
+        /* Cores litúrgicas */
+        .color-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .color-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+        .color-label {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            #slide {
+                font-size: 2.2rem;
+            }
+            
+            #title {
+                font-size: 1.2rem;
+            }
+            
+            .config-panel h2 {
+                font-size: 1.5rem;
+            }
+
+            .color-options {
+                gap: 5px;
+            }
+
+            .color-option {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="config-screen">
+    <div class="config-panel">
+        <h2>CONFIGURAÇÃO DE CÂNTICOS</h2>
+        
+        <div class="config-option">
+            <label for="file-input">CARREGAR ARQUIVO DE CÂNTICOS (TXT):</label>
+            <input type="file" id="file-input" class="file-input" accept=".txt" aria-label="Carregar arquivo de cânticos">
+        </div>
+
+        <div class="config-option">
+            <label>SELECIONE A COR DE FUNDO:</label>
+            <div class="color-options">
+                <div class="color-option-group">
+                    <div class="color-option selected" style="background: #000000;" data-color="preto" onclick="selectColor('preto')"></div>
+                    <div class="color-label">Preto</div>
+                </div>
+                <div class="color-option-group">
+                    <div class="color-option" style="background: #006400;" data-color="verde" onclick="selectColor('verde')"></div>
+                    <div class="color-label">Verde</div>
+                </div>
+                <div class="color-option-group">
+                    <div class="color-option" style="background: #450000;" data-color="vermelho" onclick="selectColor('vermelho')"></div>
+                    <div class="color-label">Vermelho</div>
+                </div>
+                <div class="color-option-group">
+                    <div class="color-option" style="background: #2D0045;" data-color="roxo" onclick="selectColor('roxo')"></div>
+                    <div class="color-label">Roxo</div>
+                </div>
+                <div class="color-option-group">
+                    <div class="color-option" style="background: #000045;" data-color="azul" onclick="selectColor('azul')"></div>
+                    <div class="color-label">Azul</div>
+                </div>
+                <div class="color-option-group">
+                    <div class="color-option" style="background: #FFFFFF; border: 1px solid #ccc;" data-color="branco" onclick="selectColor('branco')"></div>
+                    <div class="color-label">Branco</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 20px 0;">
+            <button class="btn" onclick="startWithDefault()" aria-label="Cânticos de exemplo">CÂNTICOS DE EXEMPLO</button>
+            <button class="btn" onclick="showInstructions()" aria-label="Mostrar instruções">INSTRUÇÕES</button>
+            <button class="btn" onclick="exportMusicas()" aria-label="Exportar configuração">EXPORTAR</button>
+            <button class="btn btn-primary" onclick="startPresentation()" aria-label="Iniciar apresentação">INICIAR APRESENTAÇÃO</button>
+        </div>
+
+        <div id="instructions" class="instructions" style="display: none;">
+            <h3>FORMATO DO ARQUIVO (SIMPLIFICADO):</h3>
+            <ol>
+                <li>Cada canto começa com <strong>===NOME DO CÂNTICO===</strong></li>
+                <li>Separe estrofes com linha em branco</li>
+                <li><strong>NÃO PRECISA</strong> marcar estrofes e refrões</li>
+                <li>Todas as linhas terão a mesma formatação</li>
+                <li>Opcional: termine com <strong>===FIM===</strong></li>
+            </ol>
+            
+            <h3>EXEMPLO SIMPLES:</h3>
+            <pre style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px;">===A NÓS DESCEI DIVINA LUZ===
+A NÓS DESCEI DIVINA LUZ
+EM NOSSAS ALMAS ACENDEI
+
+VEM ESPÍRITO SANTO VEM
+VEM ILUMINAR
+
+COMO NO DIA DE PENTECOSTES
+DESCEI SOBRE NÓS SENHOR
+
+VEM ESPÍRITO SANTO VEM
+VEM ILUMINAR</pre>
+            
+            <button class="btn" onclick="hideInstructions()" aria-label="Fechar instruções">FECHAR</button>
+        </div>
+    </div>
+</div>
+
+<div id="presentation-container" style="display: none;">
+    <div id="header">
+        <div id="title">Slides de Cânticos</div>
+        <div class="font-controls">
+            <button class="font-btn" onclick="decreaseFontSize()" aria-label="Diminuir fonte">A-</button>
+            <button class="font-btn" onclick="increaseFontSize()" aria-label="Aumentar fonte">A+</button>
+        </div>
+        <div id="progress" aria-live="polite">1/1</div>
+    </div>
+    
+    <div id="slide-container">
+        <div id="slide" role="main" aria-live="polite"></div>
+        <div class="loop-indicator" id="loop-indicator">LOOP ATIVO</div>
+        <div class="empty-slide-indicator" id="empty-slide-indicator">SLIDE VAZIO</div>
+    </div>
+</div>
+
+<script>
+    // =============================
+    // ESTADO DA APLICAÇÃO
+    // =============================
+    const appState = {
+        musicas: [],
+        musicaAtual: 0,
+        slideAtual: 0,
+        fontSize: 3,
+        animationFrame: null,
+        loopAtivo: false,
+        inicioDoCantico: true,
+        corFundo: 'preto'
+    };
+
+    // =============================
+    // CÂNTICOS PADRÃO - FORMATO SIMPLIFICADO
+    // =============================
+    const defaultMusicas = [
+        {
+            titulo: "A NÓS DESCEI DIVINA LUZ",
+            slides: [
+                "",
+                "A NÓS DESCEI, DIVINA LUZ\nA NÓS DESCEI, DIVINA LUZ\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS",
+                "VINDE, SANTO ESPÍRITO, E DO CÉU MANDAI\nLUMINOSO RAIO, LUMINOSO RAIO\nVINDE, PAI DOS POBRES, DOADOR DOS DONS\nLUZ DOS CORAÇÕES, LUZ DOS CORAÇÕES",
+                "GRANDE DEFENSOR, EM NÓS HABITAI\nE NOS CONFORTAI, E NOS CONFORTAI\nNA FADIGA, POUSO, NO ARDOR, BRANDURA\nE NA DOR, TERNURA, E NA DOR, TERNURA",
+                "A NÓS DESCEI, DIVINA LUZ\nA NÓS DESCEI, DIVINA LUZ\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS",
+                "Ó LUZ VENTUROSA, DIVINAIS CLARÕES\nENCHAM OS CORAÇÕES, ENCHAM OS CORAÇÕES\nSEM UM TAL PODER, EM QUALQUER VIVENTE\nNADA HÁ DE INOCENTE, NADA HÁ DE INOCENTE",
+                "LAVAI O IMPURO E REGAI O SECO\nSARAI O ENFERMO, SARAI O ENFERMO\nDOBRAI A DUREZA, AQUEÇEI O FRIO\nLIVRAI DO DESVIO, LIVRAI DO DESVIO",
+                "A NÓS DESCEI, DIVINA LUZ\nA NÓS DESCEI, DIVINA LUZ\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS",
+                "AOS FIÉIS QUE ORAM, COM VIBRANTES SONS\nDAI OS SETE DONS, DAI OS SETE DONS\nDAI VIRTUDE E PRÊMIO, E NO FIM DOS DIAS\nETERNA ALEGRIA, ETERNA ALEGRIA",
+                "ALELUIA, ALELUIA, ALELUIA, ALELUIA\nALELUIA, ALELUIA, ALELUIA, ALELUIA",
+                "A NÓS DESCEI, DIVINA LUZ\nA NÓS DESCEI, DIVINA LUZ\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS",
+                ""
+            ]
+        },
+        {
+            titulo: "VEM, ESPÍRITO SANTO, VEM",
+            slides: [
+                "",
+                "VEM, ESPÍRITO SANTO, VEM, VEM ILUMINAR!",
+                "NOSSOS CAMINHOS VEM, ILUMINAR!\nNOSSAS IDÉIAS VEM, ILUMINAR!",
+                "NOSSAS ANGÚSTIAS VEM, ILUMINAR!\nAS INCERTEZAS VEM ILUMINAR!",
+                "VEM, ESPÍRITO SANTO, VEM, VEM ILUMINAR!",
+                "TODA A IGREJA VEM ILUMINAR!\nA NOSSA VIDA VEM ILUMINAR!",
+                "NOSSAS FAMÍLIAS VEM ILUMINAR!\nTODA A TERRA VEM ILUMINAR!",
+                "VEM, ESPÍRITO SANTO, VEM, VEM ILUMINAR!",
+                ""
+            ]
+        }
+    ];
+
+    const slideDiv = document.getElementById("slide");
+    const titleDiv = document.getElementById("title");
+    const progressDiv = document.getElementById("progress");
+    const configScreen = document.getElementById("config-screen");
+    const presentationContainer = document.getElementById("presentation-container");
+    const fileInput = document.getElementById("file-input");
+    const loopIndicator = document.getElementById("loop-indicator");
+    const emptySlideIndicator = document.getElementById("empty-slide-indicator");
+
+    // =============================
+    // FUNÇÕES AUXILIARES
+    // =============================
+
+    // Função para encontrar o próximo slide com conteúdo
+    function encontrarProximoSlideComConteudo(musica, slideAtual) {
+        let proximoSlide = slideAtual + 1;
+        
+        while (proximoSlide < musica.slides.length) {
+            if (musica.slides[proximoSlide].trim() !== '') {
+                return proximoSlide;
+            }
+            proximoSlide++;
+        }
+        
+        return encontrarPrimeiroSlideComConteudo(musica);
+    }
+
+    // Função para encontrar o primeiro slide com conteúdo
+    function encontrarPrimeiroSlideComConteudo(musica) {
+        for (let i = 0; i < musica.slides.length; i++) {
+            if (musica.slides[i].trim() !== '') {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    // FUNÇÃO SIMPLIFICADA - Aplica estilo único para todas as linhas
+    function aplicarEstilo(texto) {
+        const linhas = texto.split('\n');
+        let resultado = '';
+        
+        for (let linha of linhas) {
+            if (linha.trim() !== '') {
+                resultado += `<div class="linha-cantico">${linha}</div>`;
+            } else {
+                resultado += '<br>';
+            }
+        }
+        
+        return resultado;
+    }
+
+    // Função para selecionar cor de fundo
+    function selectColor(cor) {
+        appState.corFundo = cor;
+        
+        document.querySelectorAll('.color-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        document.querySelector(`[data-color="${cor}"]`).classList.add('selected');
+        
+        aplicarCorFundo(configScreen, cor);
+    }
+
+    // Função para aplicar cor de fundo
+    function aplicarCorFundo(elemento, cor) {
+        const cores = {
+            'preto': '#000000',
+            'verde': '#006400',
+            'vermelho': '#450000',
+            'roxo': '#2D0045',
+            'azul': '#000045',
+            'branco': '#FFFFFF'
+        };
+        
+        elemento.style.background = cores[cor];
+        
+        if (cor === 'branco') {
+            elemento.style.color = '#ffffff';
+            document.querySelectorAll('.config-panel, .instructions').forEach(el => {
+                el.style.background = 'rgba(0, 0, 0, 0.1)';
+                el.style.color = '#ffffff';
+            });
+        } else {
+            elemento.style.color = '#ffffff';
+            document.querySelectorAll('.config-panel, .instructions').forEach(el => {
+                el.style.background = 'rgba(255, 255, 255, 0.1)';
+                el.style.color = '#ffffff';
+            });
+        }
+    }
+
+    // =============================
+    // FUNÇÕES DE CONFIGURAÇÃO
+    // =============================
+
+    function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        notification.style.background = type === 'success' ? '#4CAF50' : '#f44336';
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    function showInstructions() {
+        document.getElementById('instructions').style.display = 'block';
+    }
+
+    function hideInstructions() {
+        document.getElementById('instructions').style.display = 'none';
+    }
+
+    function startWithDefault() {
+        appState.musicas = [...defaultMusicas];
+        showNotification('Cânticos de exemplo carregados! Clique em "INICIAR APRESENTAÇÃO"');
+    }
+
+    function exportMusicas() {
+        if (appState.musicas.length === 0) {
+            showNotification('Nenhum cântico para exportar!', 'error');
+            return;
+        }
+
+        let content = '';
+        appState.musicas.forEach(musica => {
+            content += `===${musica.titulo}===\n`;
+            musica.slides.forEach((slide, index) => {
+                if (slide.trim() !== '' && index < musica.slides.length - 1) {
+                    content += slide + '\n\n';
+                }
+            });
+            content += '===FIM===\n\n';
+        });
+
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'canticos_' + new Date().toISOString().split('T')[0] + '.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        showNotification('Arquivo exportado com sucesso!');
+    }
+
+    function validateContent(content) {
+        if (!content || content.trim().length === 0) {
+            throw new Error('Arquivo vazio');
+        }
+        
+        if (!content.includes('===')) {
+            throw new Error('Formato inválido: marcadores === não encontrados');
+        }
+        
+        return true;
+    }
+
+    function addSlideToMusica(musica, currentSlides, currentSlide) {
+        if (currentSlide.length > 0) {
+            currentSlides.push(currentSlide.join('\n'));
+        }
+        if (currentSlides.length > 0) {
+            if (currentSlides[0].trim() !== '') {
+                currentSlides.unshift("");
+            }
+            if (currentSlides[currentSlides.length - 1].trim() !== '') {
+                currentSlides.push("");
+            }
+            musica.slides = currentSlides;
+            return musica;
+        }
+        return null;
+    }
+
+    function parseTextFile(content) {
+        try {
+            validateContent(content);
+        } catch (error) {
+            throw error;
+        }
+
+        const musicas = [];
+        const lines = content.split('\n');
+        let currentMusica = null;
+        let currentSlides = [];
+        let currentSlide = [];
+
+        for (let line of lines) {
+            line = line.trim();
+            
+            if (line.startsWith('===') && line.endsWith('===') && line !== '===FIM===') {
+                if (currentMusica) {
+                    const musica = addSlideToMusica(
+                        { titulo: currentMusica.toUpperCase(), slides: [] },
+                        currentSlides,
+                        currentSlide
+                    );
+                    if (musica) musicas.push(musica);
+                }
+                
+                currentMusica = line.replace(/===/g, '').trim();
+                currentSlides = [];
+                currentSlide = [];
+            }
+            else if (line === '===FIM===') {
+                if (currentSlide.length > 0) {
+                    currentSlides.push(currentSlide.join('\n'));
+                    currentSlide = [];
+                }
+            }
+            else if (line === '' && currentSlide.length > 0) {
+                currentSlides.push(currentSlide.join('\n'));
+                currentSlide = [];
+            }
+            else if (line !== '' && currentMusica) {
+                currentSlide.push(line);
+            }
+        }
+
+        if (currentMusica) {
+            const musica = addSlideToMusica(
+                { titulo: currentMusica.toUpperCase(), slides: [] },
+                currentSlides,
+                currentSlide
+            );
+            if (musica) musicas.push(musica);
+        }
+
+        if (musicas.length === 0) {
+            throw new Error('Nenhum cântico válido encontrado no arquivo');
+        }
+
+        return musicas;
+    }
+
+    // =============================
+    // FUNÇÕES DE APRESENTAÇÃO
+    // =============================
+
+    function mostrarSlide() {
+        const musica = appState.musicas[appState.musicaAtual];
+        const texto = musica.slides[appState.slideAtual];
+        
+        titleDiv.textContent = musica.titulo;
+        progressDiv.textContent = `${appState.slideAtual + 1}/${musica.slides.length}`;
+        
+        slideDiv.classList.remove("visible");
+        
+        if (appState.animationFrame) {
+            cancelAnimationFrame(appState.animationFrame);
+        }
+        
+        appState.animationFrame = requestAnimationFrame(() => {
+            setTimeout(() => {
+                // Aplica o estilo SIMPLIFICADO
+                if (texto.trim() !== '') {
+                    slideDiv.innerHTML = aplicarEstilo(texto);
+                } else {
+                    slideDiv.textContent = texto;
+                }
+                
+                slideDiv.style.fontSize = appState.fontSize + 'rem';
+                
+                // Mantém o texto branco
+                slideDiv.style.color = '#ffffff';
+                slideDiv.style.textShadow = '3px 3px 6px rgba(0, 0, 0, 0.9)';
+                titleDiv.style.color = '#ffffff';
+                progressDiv.style.color = '#cccccc';
+                
+                slideDiv.classList.add("visible");
+                
+                // Mostrar indicador de loop
+                if (appState.slideAtual === musica.slides.length - 1 && appState.loopAtivo) {
+                    loopIndicator.style.display = 'block';
+                } else {
+                    loopIndicator.style.display = 'none';
+                }
+                
+                // Mostrar indicador de slide vazio
+                if (texto.trim() === '') {
+                    emptySlideIndicator.style.display = 'block';
+                } else {
+                    emptySlideIndicator.style.display = 'none';
+                }
+            }, 300);
+        });
+    }
+
+    function proximoSlide() {
+        const musica = appState.musicas[appState.musicaAtual];
+        
+        if (appState.inicioDoCantico) {
+            appState.slideAtual = encontrarPrimeiroSlideComConteudo(musica);
+            appState.inicioDoCantico = false;
+        } else {
+            appState.slideAtual = encontrarProximoSlideComConteudo(musica, appState.slideAtual);
+            
+            if (appState.slideAtual >= musica.slides.length) {
+                appState.loopAtivo = true;
+                appState.slideAtual = encontrarPrimeiroSlideComConteudo(musica);
+            } else {
+                appState.loopAtivo = false;
+            }
+        }
+        
+        mostrarSlide();
+    }
+
+    function slideAnterior() {
+        const musica = appState.musicas[appState.musicaAtual];
+        
+        if (!appState.inicioDoCantico) {
+            let slideAnterior = appState.slideAtual - 1;
+            
+            while (slideAnterior >= 0) {
+                if (musica.slides[slideAnterior].trim() !== '') {
+                    appState.slideAtual = slideAnterior;
+                    appState.loopAtivo = false;
+                    mostrarSlide();
+                    return;
+                }
+                slideAnterior--;
+            }
+            
+            appState.inicioDoCantico = true;
+            appState.slideAtual = 0;
+        }
+        
+        mostrarSlide();
+    }
+
+    function proximoCantico() {
+        const previousMusicaIndex = appState.musicaAtual;
+        
+        appState.musicaAtual = (appState.musicaAtual + 1) % appState.musicas.length;
+        appState.slideAtual = 0;
+        appState.loopAtivo = false;
+        appState.inicioDoCantico = true;
+        
+        if (previousMusicaIndex !== appState.musicaAtual) {
+            slideDiv.classList.add('music-transition');
+            setTimeout(() => {
+                slideDiv.classList.remove('music-transition');
+            }, 1000);
+        }
+        
+        mostrarSlide();
+    }
+
+    function canticoAnterior() {
+        const previousMusicaIndex = appState.musicaAtual;
+        
+        appState.musicaAtual--;
+        if (appState.musicaAtual < 0) appState.musicaAtual = appState.musicas.length - 1;
+        appState.slideAtual = 0;
+        appState.loopAtivo = false;
+        appState.inicioDoCantico = true;
+        
+        if (previousMusicaIndex !== appState.musicaAtual) {
+            slideDiv.classList.add('music-transition');
+            setTimeout(() => {
+                slideDiv.classList.remove('music-transition');
+            }, 1000);
+        }
+        
+        mostrarSlide();
+    }
+
+    function increaseFontSize() {
+        if (appState.fontSize < 5) {
+            appState.fontSize += 0.2;
+            slideDiv.style.fontSize = appState.fontSize + 'rem';
+        }
+    }
+
+    function decreaseFontSize() {
+        if (appState.fontSize > 1.5) {
+            appState.fontSize -= 0.2;
+            slideDiv.style.fontSize = appState.fontSize + 'rem';
+        }
+    }
+
+    function startPresentation() {
+        if (appState.musicas.length === 0) {
+            showNotification('Nenhum canto carregado! Use "CÂNTICOS DE EXEMPLO" ou carregue um arquivo.', 'error');
+            return;
+        }
+
+        configScreen.style.display = "none";
+        presentationContainer.style.display = "flex";
+        
+        aplicarCorFundo(document.body, appState.corFundo);
+        
+        appState.musicaAtual = 0;
+        appState.slideAtual = 0;
+        appState.loopAtivo = false;
+        appState.inicioDoCantico = true;
+        mostrarSlide();
+        
+        showNotification('Apresentação iniciada! Use as setas para navegar.');
+    }
+
+    // =============================
+    // EVENT LISTENERS
+    // =============================
+
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const content = e.target.result;
+                    appState.musicas = parseTextFile(content);
+                    showNotification('Arquivo carregado com sucesso! Clique em "INICIAR APRESENTAÇÃO"');
+                } catch (error) {
+                    showNotification('Erro: ' + error.message, 'error');
+                }
+            };
+            reader.onerror = function() {
+                showNotification('Erro ao ler o arquivo', 'error');
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (presentationContainer.style.display === "flex") {
+            if (e.key === "ArrowRight" || e.key === " ") {
+                e.preventDefault();
+                proximoSlide();
+            }
+            if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                slideAnterior();
+            }
+            if (e.key === "ArrowUp" || e.key === "PageUp") {
+                e.preventDefault();
+                canticoAnterior();
+            }
+            if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === "Enter") {
+                e.preventDefault();
+                proximoCantico();
+            }
+            if (e.key === "Escape") {
+                presentationContainer.style.display = "none";
+                configScreen.style.display = "flex";
+                aplicarCorFundo(configScreen, appState.corFundo);
+            }
+            if (e.key === "+" || e.key === "=") {
+                e.preventDefault();
+                increaseFontSize();
+            }
+            if (e.key === "-" || e.key === "_") {
+                e.preventDefault();
+                decreaseFontSize();
+            }
+        }
+    });
+
+    // Inicializa com a cor preta selecionada
+    selectColor('preto');
+</script>
+</body>
+</html>
