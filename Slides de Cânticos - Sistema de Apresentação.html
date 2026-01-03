@@ -14,7 +14,7 @@
 
         body {
             margin: 0;
-            background: #000000;
+            background: #000000; /* Preto como padrão */
             color: #fff;
             overflow: hidden;
             display: flex;
@@ -89,16 +89,26 @@
             overflow: hidden;
         }
 
-        /* Estilo único para todas as linhas - MUITO MAIS SIMPLES */
-        .linha-cantico {
+        /* Estilos diferenciados para estrofes e refrões - TODAS BRANCAS */
+        .estrofe {
             color: #ffffff;
             font-weight: 700;
             letter-spacing: 1px;
             opacity: 0;
             animation: fadeIn 0.8s ease-in-out forwards;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
-            margin-bottom: 5px; /* Reduzido de 10px */
             line-height: 1.2; /* Reduzido de 1.4 */
+            margin-bottom: 0.2em; /* Adicionado espaçamento controlado */
+        }
+
+        .refrao {
+            color: #ffffff;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out 0.2s forwards;
+            line-height: 1.2; /* Reduzido de 1.4 */
+            margin-bottom: 0.2em; /* Adicionado espaçamento controlado */
         }
 
         @keyframes fadeIn {
@@ -203,7 +213,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000000;
+            background: #000000; /* Preto como padrão */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -448,26 +458,29 @@
         </div>
 
         <div id="instructions" class="instructions" style="display: none;">
-            <h3>FORMATO DO ARQUIVO (SIMPLIFICADO):</h3>
+            <h3>FORMATO DO ARQUIVO (MELHORADO):</h3>
             <ol>
-                <li>Cada canto começa com <strong>===NOME DO CÂNTICO===</strong></li>
+                <li>Cada canto começa com <strong>===NOME===</strong></li>
                 <li>Separe estrofes com linha em branco</li>
-                <li><strong>NÃO PRECISA</strong> marcar estrofes e refrões</li>
-                <li>Todas as linhas terão a mesma formatação</li>
+                <li>Use <strong>#E</strong> para marcar estrofes e <strong>#R</strong> para refrões (não aparecem nos slides)</li>
                 <li>Opcional: termine com <strong>===FIM===</strong></li>
             </ol>
             
-            <h3>EXEMPLO SIMPLES:</h3>
+            <h3>EXEMPLO DISCRETO:</h3>
             <pre style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 3px;">===A NÓS DESCEI DIVINA LUZ===
+#E
 A NÓS DESCEI DIVINA LUZ
-EM NOSSAS ALMAS ACENDEI
+E O NOSSO FOGO ACENDEI
 
+#R
 VEM ESPÍRITO SANTO VEM
 VEM ILUMINAR
 
+#E
 COMO NO DIA DE PENTECOSTES
 DESCEI SOBRE NÓS SENHOR
 
+#R
 VEM ESPÍRITO SANTO VEM
 VEM ILUMINAR</pre>
             
@@ -512,37 +525,88 @@ VEM ILUMINAR</pre>
     };
 
     // =============================
-    // CÂNTICOS PADRÃO - FORMATO SIMPLIFICADO
+    // LISTA DE CÂNTICOS QUE DEVEM REPETIR (LOOP)
+    // =============================
+    const canticosComRepeticao = [
+        "CANTO INICIAL",
+        "APRESENTAÇÃO DAS OFERTAS", 
+        "CANTO DE COMUNHÃO",
+        "CANTO DE DESPEDIDA"
+    ];
+
+    // =============================
+    // CÂNTICOS PADRÃO (FALLBACK) - FORMATO DISCRETO
     // =============================
     const defaultMusicas = [
         {
-            titulo: "A NÓS DESCEI DIVINA LUZ",
+            titulo: "CANTO INICIAL",
             slides: [
                 "",
-                "A NÓS DESCEI, DIVINA LUZ\nA NÓS DESCEI, DIVINA LUZ\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS",
-                "VINDE, SANTO ESPÍRITO, E DO CÉU MANDAI\nLUMINOSO RAIO, LUMINOSO RAIO\nVINDE, PAI DOS POBRES, DOADOR DOS DONS\nLUZ DOS CORAÇÕES, LUZ DOS CORAÇÕES",
-                "GRANDE DEFENSOR, EM NÓS HABITAI\nE NOS CONFORTAI, E NOS CONFORTAI\nNA FADIGA, POUSO, NO ARDOR, BRANDURA\nE NA DOR, TERNURA, E NA DOR, TERNURA",
-                "A NÓS DESCEI, DIVINA LUZ\nA NÓS DESCEI, DIVINA LUZ\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS",
-                "Ó LUZ VENTUROSA, DIVINAIS CLARÕES\nENCHAM OS CORAÇÕES, ENCHAM OS CORAÇÕES\nSEM UM TAL PODER, EM QUALQUER VIVENTE\nNADA HÁ DE INOCENTE, NADA HÁ DE INOCENTE",
-                "LAVAI O IMPURO E REGAI O SECO\nSARAI O ENFERMO, SARAI O ENFERMO\nDOBRAI A DUREZA, AQUEÇEI O FRIO\nLIVRAI DO DESVIO, LIVRAI DO DESVIO",
-                "A NÓS DESCEI, DIVINA LUZ\nA NÓS DESCEI, DIVINA LUZ\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS",
-                "AOS FIÉIS QUE ORAM, COM VIBRANTES SONS\nDAI OS SETE DONS, DAI OS SETE DONS\nDAI VIRTUDE E PRÊMIO, E NO FIM DOS DIAS\nETERNA ALEGRIA, ETERNA ALEGRIA",
-                "ALELUIA, ALELUIA, ALELUIA, ALELUIA\nALELUIA, ALELUIA, ALELUIA, ALELUIA",
-                "A NÓS DESCEI, DIVINA LUZ\nA NÓS DESCEI, DIVINA LUZ\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS\nEM NOSSAS ALMAS ACENDEI\nO AMOR, O AMOR DE JESUS",
+                "#E\nCANTO INICIAL DA MISSA\nDE HOJE VAMOS CANTAR\nALELUIA, ALELUIA\nLOUVEMOS AO SENHOR",
+                "#R\nCANTO INICIAL, CANTO INICIAL\nVAMOS TODOS CANTAR\nCANTO INICIAL, CANTO INICIAL\nLOUVEMOS AO SENHOR",
+                "#E\nCOM ALEGRIA NO CORAÇÃO\nNOS REUNIMOS AQUI\nPARA LOUVAR A DEUS\nNOSSO PAI E SENHOR",
+                "#R\nCANTO INICIAL, CANTO INICIAL\nVAMOS TODOS CANTAR\nCANTO INICIAL, CANTO INICIAL\nLOUVEMOS AO SENHOR",
                 ""
             ]
         },
         {
-            titulo: "VEM, ESPÍRITO SANTO, VEM",
+            titulo: "ATO PENITENCIAL",
             slides: [
                 "",
-                "VEM, ESPÍRITO SANTO, VEM, VEM ILUMINAR!",
-                "NOSSOS CAMINHOS VEM, ILUMINAR!\nNOSSAS IDÉIAS VEM, ILUMINAR!",
-                "NOSSAS ANGÚSTIAS VEM, ILUMINAR!\nAS INCERTEZAS VEM ILUMINAR!",
-                "VEM, ESPÍRITO SANTO, VEM, VEM ILUMINAR!",
-                "TODA A IGREJA VEM ILUMINAR!\nA NOSSA VIDA VEM ILUMINAR!",
-                "NOSSAS FAMÍLIAS VEM ILUMINAR!\nTODA A TERRA VEM ILUMINAR!",
-                "VEM, ESPÍRITO SANTO, VEM, VEM ILUMINAR!",
+                "#E\nTEM PIEDADE DE NÓS, SENHOR\nPECAMOS CONTRA VÓS",
+                "#E\nMOSTRAI-NOS, SENHOR, VOSSA MISERICÓRDIA\nE A VOSSA SALVAÇÃO NOS DAI",
+                ""
+            ]
+        },
+        {
+            titulo: "APRESENTAÇÃO DAS OFERTAS",
+            slides: [
+                "",
+                "#E\nTRAZEMOS NOSSAS OFERTAS\nAO ALTAR DO SENHOR",
+                "#R\nACEITAI, SENHOR, NOSSAS OFERTAS\nE NOS ABENÇOAI",
+                "#E\nPÃO E VINHO CONSAGRADOS\nPARA NOSSA SALVAÇÃO",
+                "#R\nACEITAI, SENHOR, NOSSAS OFERTAS\nE NOS ABENÇOAI",
+                ""
+            ]
+        },
+        {
+            titulo: "SANTO",
+            slides: [
+                "",
+                "#E\nSANTO, SANTO, SANTO\nSENHOR DEUS DO UNIVERSO\nO CÉU E A TERRA PROCLAMAM\nVOSSA GLÓRIA",
+                "#E\nHOSANA NAS ALTURAS\nBENDITO O QUE VEM\nEM NOME DO SENHOR\nHOSANA NAS ALTURAS",
+                ""
+            ]
+        },
+        {
+            titulo: "CORDEIRO DE DEUS",
+            slides: [
+                "",
+                "#E\nCORDEIRO DE DEUS\nQUE TIRAIS O PECADO DO MUNDO\nTEM PIEDADE DE NÓS",
+                "#E\nCORDEIRO DE DEUS\nQUE TIRAIS O PECADO DO MUNDO\nTEM PIEDADE DE NÓS",
+                "#E\nCORDEIRO DE DEUS\nQUE TIRAIS O PECADO DO MUNDO\nDAI-NOS A PAZ",
+                ""
+            ]
+        },
+        {
+            titulo: "CANTO DE COMUNHÃO",
+            slides: [
+                "",
+                "#E\nVINDE A MIM TODOS VÓS\nQUE ESTAIS AFLITOS",
+                "#R\nO PÃO DA VIDA É CRISTO\nQUE SE ENTREGOU POR NÓS",
+                "#E\nQUEM COME MINHA CARNE\nE BEBE MEU SANGUREM MIM PERMANECE\nE EU NELE",
+                "#R\nO PÃO DA VIDA É CRISTO\nQUE SE ENTREGOU POR NÓS",
+                ""
+            ]
+        },
+        {
+            titulo: "CANTO DE DESPEDIDA",
+            slides: [
+                "",
+                "#E\nA MISSA TERMINOU\nIDE EM PAZ",
+                "#R\nIDE EM PAZ, IDE EM PAZ\nPARA ANUNCIAR O EVANGELHO",
+                "#E\nLEVAI A BOA NOVA\nA TODOS OS POVOS",
+                "#R\nIDE EM PAZ, IDE EM PAZ\nPARA ANUNCIAR O EVANGELHO",
                 ""
             ]
         }
@@ -592,12 +656,16 @@ VEM ILUMINAR</pre>
         
         // Se ainda não couber, ajusta o line-height
         if (slideHeight > containerHeight && fontSize > 0.8) {
-            const linhas = slide.querySelectorAll('.linha-cantico');
+            const estrofes = slide.querySelectorAll('.estrofe');
+            const refroes = slide.querySelectorAll('.refrao');
             let currentLineHeight = 1.2; // Reduzido de 1.4
             
             while (slideHeight > containerHeight && currentLineHeight > 1.0) { // Reduzido de 1.1
                 currentLineHeight -= 0.05;
-                linhas.forEach(linha => {
+                estrofes.forEach(linha => {
+                    linha.style.lineHeight = currentLineHeight;
+                });
+                refroes.forEach(linha => {
                     linha.style.lineHeight = currentLineHeight;
                 });
                 slideHeight = slide.scrollHeight;
@@ -622,8 +690,12 @@ VEM ILUMINAR</pre>
             slideDiv.style.fontSize = appState.baseFontSize + 'rem';
             
             // Restaura line-height padrão
-            const linhas = slideDiv.querySelectorAll('.linha-cantico');
-            linhas.forEach(linha => {
+            const estrofes = slideDiv.querySelectorAll('.estrofe');
+            const refroes = slideDiv.querySelectorAll('.refrao');
+            estrofes.forEach(linha => {
+                linha.style.lineHeight = '1.2'; // Reduzido de 1.4
+            });
+            refroes.forEach(linha => {
                 linha.style.lineHeight = '1.2'; // Reduzido de 1.4
             });
         }
@@ -639,10 +711,29 @@ VEM ILUMINAR</pre>
     // FUNÇÕES AUXILIARES
     // =============================
 
+    // Função para verificar se o cântico atual DEVE repetir
+    function deveRepetirCantico(titulo) {
+        return canticosComRepeticao.some(nome => 
+            titulo.toUpperCase().includes(nome)
+        );
+    }
+
+    // Função para contar slides com conteúdo em um cântico
+    function contarSlidesComConteudo(musica) {
+        let count = 0;
+        for (let i = 0; i < musica.slides.length; i++) {
+            if (musica.slides[i].trim() !== '') {
+                count++;
+            }
+        }
+        return count;
+    }
+
     // Função para encontrar o próximo slide com conteúdo
     function encontrarProximoSlideComConteudo(musica, slideAtual) {
         let proximoSlide = slideAtual + 1;
         
+        // Percorre os slides até encontrar um com conteúdo
         while (proximoSlide < musica.slides.length) {
             if (musica.slides[proximoSlide].trim() !== '') {
                 return proximoSlide;
@@ -650,7 +741,8 @@ VEM ILUMINAR</pre>
             proximoSlide++;
         }
         
-        return encontrarPrimeiroSlideComConteudo(musica);
+        // Se não encontrou, retorna -1
+        return -1;
     }
 
     // Função para encontrar o primeiro slide com conteúdo
@@ -660,17 +752,31 @@ VEM ILUMINAR</pre>
                 return i;
             }
         }
-        return 0;
+        return -1; // Nenhum slide com conteúdo encontrado
     }
 
-    // FUNÇÃO SIMPLIFICADA - Aplica estilo único para todas as linhas
-    function aplicarEstilo(texto) {
+    // Função para aplicar estilos diferenciados (SEM PALAVRAS ESTROFE/REFRAO)
+    function aplicarEstiloDiferenciado(texto) {
+        // Divide o texto em linhas
         const linhas = texto.split('\n');
         let resultado = '';
+        let contextoAtual = 'estrofe'; // padrão
         
         for (let linha of linhas) {
-            if (linha.trim() !== '') {
-                resultado += `<div class="linha-cantico">${linha}</div>`;
+            const linhaTrim = linha.trim();
+            
+            // Verifica se é um marcador discreto
+            if (linhaTrim === '#E') {
+                contextoAtual = 'estrofe';
+                continue; // Não adiciona ao resultado
+            } else if (linhaTrim === '#R') {
+                contextoAtual = 'refrao';
+                continue; // Não adiciona ao resultado
+            }
+            
+            // Adiciona a linha com a classe apropriada
+            if (linhaTrim !== '') {
+                resultado += `<div class="${contextoAtual}">${linha}</div>`;
             } else {
                 resultado += '<br>';
             }
@@ -683,11 +789,13 @@ VEM ILUMINAR</pre>
     function selectColor(cor) {
         appState.corFundo = cor;
         
+        // Atualiza a seleção visual
         document.querySelectorAll('.color-option').forEach(opt => {
             opt.classList.remove('selected');
         });
         document.querySelector(`[data-color="${cor}"]`).classList.add('selected');
         
+        // Aplica a cor ao fundo da configuração para preview
         aplicarCorFundo(configScreen, cor);
     }
 
@@ -704,6 +812,7 @@ VEM ILUMINAR</pre>
         
         elemento.style.background = cores[cor];
         
+        // Se for branco, mantém o texto branco
         if (cor === 'branco') {
             elemento.style.color = '#ffffff';
             document.querySelectorAll('.config-panel, .instructions').forEach(el => {
@@ -793,6 +902,7 @@ VEM ILUMINAR</pre>
             currentSlides.push(currentSlide.join('\n'));
         }
         if (currentSlides.length > 0) {
+            // Garante que sempre tenha um slide vazio no início e no final
             if (currentSlides[0].trim() !== '') {
                 currentSlides.unshift("");
             }
@@ -885,9 +995,9 @@ VEM ILUMINAR</pre>
         
         appState.animationFrame = requestAnimationFrame(() => {
             setTimeout(() => {
-                // Aplica o estilo SIMPLIFICADO
+                // Aplica o estilo diferenciado
                 if (texto.trim() !== '') {
-                    slideDiv.innerHTML = aplicarEstilo(texto);
+                    slideDiv.innerHTML = aplicarEstiloDiferenciado(texto);
                 } else {
                     slideDiv.textContent = texto;
                 }
@@ -902,7 +1012,7 @@ VEM ILUMINAR</pre>
                     }, 50);
                 }
                 
-                // Mantém o texto branco
+                // Mantém o texto branco mesmo no fundo branco
                 slideDiv.style.color = '#ffffff';
                 slideDiv.style.textShadow = '3px 3px 6px rgba(0, 0, 0, 0.9)';
                 titleDiv.style.color = '#ffffff';
@@ -910,7 +1020,7 @@ VEM ILUMINAR</pre>
                 
                 slideDiv.classList.add("visible");
                 
-                // Mostrar indicador de loop
+                // Mostrar indicador de loop se estiver no último slide
                 if (appState.slideAtual === musica.slides.length - 1 && appState.loopAtivo) {
                     loopIndicator.style.display = 'block';
                 } else {
@@ -923,22 +1033,49 @@ VEM ILUMINAR</pre>
                 } else {
                     emptySlideIndicator.style.display = 'none';
                 }
-            }, 300);
+            }, 300); // Delay para transição mais suave
         });
     }
 
     function proximoSlide() {
         const musica = appState.musicas[appState.musicaAtual];
         
+        // Conta quantos slides com conteúdo existem neste cântico
+        const slidesComConteudo = contarSlidesComConteudo(musica);
+        
+        // Verifica se o cântico atual DEVE repetir
+        const deveRepetir = deveRepetirCantico(musica.titulo);
+        
+        // REGRA 1: Se tiver apenas 1 slide com conteúdo e não está no início, avança para o próximo cântico
+        if (slidesComConteudo === 1 && !appState.inicioDoCantico) {
+            proximoCantico();
+            return;
+        }
+        
+        // Se estamos no início do cântico (slide vazio), vai para o primeiro slide com conteúdo
         if (appState.inicioDoCantico) {
             appState.slideAtual = encontrarPrimeiroSlideComConteudo(musica);
+            if (appState.slideAtual === -1) {
+                // Se não encontrou nenhum slide com conteúdo, vai para o próximo cântico
+                proximoCantico();
+                return;
+            }
             appState.inicioDoCantico = false;
         } else {
+            // Durante o loop normal, procura o próximo slide com conteúdo
             appState.slideAtual = encontrarProximoSlideComConteudo(musica, appState.slideAtual);
             
-            if (appState.slideAtual >= musica.slides.length) {
-                appState.loopAtivo = true;
-                appState.slideAtual = encontrarPrimeiroSlideComConteudo(musica);
+            // Se chegou ao final (não encontrou próximo slide com conteúdo)
+            if (appState.slideAtual === -1) {
+                // REGRA 2: Se o cântico DEVE repetir e tem mais de 1 slide, ativa o loop
+                if (deveRepetir && slidesComConteudo > 1) {
+                    appState.loopAtivo = true;
+                    appState.slideAtual = encontrarPrimeiroSlideComConteudo(musica);
+                } else {
+                    // REGRA 3: Se não deve repetir, vai para o próximo cântico
+                    proximoCantico();
+                    return;
+                }
             } else {
                 appState.loopAtivo = false;
             }
@@ -950,9 +1087,29 @@ VEM ILUMINAR</pre>
     function slideAnterior() {
         const musica = appState.musicas[appState.musicaAtual];
         
+        // Conta quantos slides com conteúdo existem neste cântico
+        const slidesComConteudo = contarSlidesComConteudo(musica);
+        
+        // Verifica se o cântico atual DEVE repetir
+        const deveRepetir = deveRepetirCantico(musica.titulo);
+        
+        // REGRA 1: Se tiver apenas 1 slide com conteúdo e não está no início, vai para o cântico anterior
+        if (slidesComConteudo === 1 && !appState.inicioDoCantico) {
+            canticoAnterior();
+            return;
+        }
+        
+        // REGRA 2: Se não deve repetir e não estamos no início, vai para o cântico anterior
+        if (!deveRepetir && !appState.inicioDoCantico) {
+            canticoAnterior();
+            return;
+        }
+        
+        // Se não estamos no início, procura o slide anterior com conteúdo
         if (!appState.inicioDoCantico) {
             let slideAnterior = appState.slideAtual - 1;
             
+            // Percorre os slides para trás até encontrar um com conteúdo
             while (slideAnterior >= 0) {
                 if (musica.slides[slideAnterior].trim() !== '') {
                     appState.slideAtual = slideAnterior;
@@ -963,8 +1120,9 @@ VEM ILUMINAR</pre>
                 slideAnterior--;
             }
             
+            // Se não encontrou nenhum slide anterior com conteúdo, vai para o início
             appState.inicioDoCantico = true;
-            appState.slideAtual = 0;
+            appState.slideAtual = 0; // Slide vazio inicial
         }
         
         mostrarSlide();
@@ -974,6 +1132,7 @@ VEM ILUMINAR</pre>
         const previousMusicaIndex = appState.musicaAtual;
         
         appState.musicaAtual = (appState.musicaAtual + 1) % appState.musicas.length;
+        // Sempre começa no slide vazio (índice 0) quando muda de cântico
         appState.slideAtual = 0;
         appState.loopAtivo = false;
         appState.inicioDoCantico = true;
@@ -993,6 +1152,7 @@ VEM ILUMINAR</pre>
         
         appState.musicaAtual--;
         if (appState.musicaAtual < 0) appState.musicaAtual = appState.musicas.length - 1;
+        // Sempre começa no slide vazio (índice 0) quando muda de cântico
         appState.slideAtual = 0;
         appState.loopAtivo = false;
         appState.inicioDoCantico = true;
@@ -1040,12 +1200,13 @@ VEM ILUMINAR</pre>
         configScreen.style.display = "none";
         presentationContainer.style.display = "flex";
         
+        // Aplica a cor de fundo selecionada
         aplicarCorFundo(document.body, appState.corFundo);
         
         appState.musicaAtual = 0;
         appState.slideAtual = 0;
         appState.loopAtivo = false;
-        appState.inicioDoCantico = true;
+        appState.inicioDoCantico = true; // Começa no slide vazio
         mostrarSlide();
         
         showNotification('Apresentação iniciada! Use as setas para navegar.');
@@ -1096,6 +1257,7 @@ VEM ILUMINAR</pre>
             if (e.key === "Escape") {
                 presentationContainer.style.display = "none";
                 configScreen.style.display = "flex";
+                // Restaura o fundo original da configuração
                 aplicarCorFundo(configScreen, appState.corFundo);
             }
             if (e.key === "+" || e.key === "=") {
