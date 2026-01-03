@@ -4,6 +4,7 @@
 Um sistema web para apresentação de slides de cânticos durante celebrações religiosas, com navegação intuitiva e configurações personalizáveis.
 
 ✨ Funcionalidades Principais
+
 📋 Configuração Inicial
 Carregamento de Arquivos TXT - Formato simplificado com marcadores especiais
 
